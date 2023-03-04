@@ -75,7 +75,7 @@ const Header: FC = () => {
 	}, [onWindowClick]);
 
 	return (
-		<header className='bg-header'>
+		<header className='bg-header sticky top-0 z-50'>
 			<Container className='flex items-center justify-between'>
 				<div className='flex items-stretch gap-6'>
 					{/*brand*/}
@@ -112,7 +112,7 @@ const Header: FC = () => {
 						type='text'
 						value={keyword}
 						className='bg-transparent outline-none flex-1 ultra-xl:max-w-[10rem]'
-						placeholder='search ...'
+						placeholder='Search'
 					/>
 					<IoIosSearch size={18} />
 					{/*tmp results*/}

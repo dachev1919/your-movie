@@ -12,7 +12,7 @@ const Image: FC<IImageProps> = props => {
 		<div
 			className={mergeClassName('bg-primary w-full h-full', props.className)}
 		>
-			<img src={props.src} className='w-full h-full' alt={props.alt} />
+			<img src={props.src} className='w-full h-full object-cover' alt={props.alt} />
 		</div>
 	);
 };
