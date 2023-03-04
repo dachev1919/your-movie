@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind utilities;
 @tailwind components;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
 body, html {
   width: 100%;
@@ -10,4 +11,15 @@ body, html {
 body {
   background-color: theme('colors.body');
   color: theme('colors.white');
+  font-family: 'Roboto', sans-serif;
+}
+
+.overlay-slick-hero {
+  @apply absolute left-0 right-0 top-0 bottom-0;
+  background: linear-gradient(
+                  to right,
+                  theme('colors.body'),
+                  transparent 70%,
+                  theme('colors.body')
+  );
 }

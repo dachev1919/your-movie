@@ -1,0 +1,27 @@
+@import 'slick-carousel/slick/slick.scss';
+@import 'slick-carousel/slick/slick-theme.scss';
+
+.slick-slider {
+  &.home-hero {
+    .slick {
+      &-prev {
+        left: 1.5625rem  /* 25/16 */;
+      }
+      &-next {
+        right: 1.5625rem  /* 25/16 */;
+      }
+    }
+  }
+  .slick {
+    &-prev,
+    &-next {
+      z-index: 10;
+    }
+    &-prev {
+      left: 0;
+    }
+    &-next {
+      right: 0;
+    }
+  }
+}

@@ -13,7 +13,7 @@ const SearchResult: FC<ISearchResultProps> = props => {
 	const fetch = () => {
 		const arrs: IFilm[] = [];
 
-		for (let i = 0; i < 5; i++) {
+		for (let i = 0; i < 8; i++) {
 			arrs.push({
 				id: i,
 				title: 'lorem',
@@ -33,8 +33,8 @@ const SearchResult: FC<ISearchResultProps> = props => {
 	}, [props.keyword]);
 
 	return (
-		<div className='absolute top-[110%] left-0 right-0 rounded-md overflow-hidden bg-header mobile:w-[296px] mobile:left-[auto]'>
-			{items.slice(0, 5).map((film, index) => (
+		<div className='absolute top-[110%] left-0 right-0 p-3 shadow-lg rounded-md overflow-auto max-h-[30rem] bg-header mobile:w-[296px] mobile:left-[auto]'>
+			{items.slice(0, 7).map((film, index) => (
 				<div
 					key={`search-${film.id}`}
 					className='flex items-start p-1.5 rounded-lg hover:bg-primary cursor-pointer m-1.5'
@@ -60,7 +60,7 @@ const SearchResult: FC<ISearchResultProps> = props => {
 			{items.length > 5 ? (
 				<button
 					onClick={() => props.goToSearchPage()}
-					className='px-3 py-1.5 transition bg-primary w-full hover:opacity-80'
+					className='sticky px-3 -bottom-1.5 py-1.5 transition bg-primary w-full hover:bg-secondary'
 				>
 					More results
 				</button>
