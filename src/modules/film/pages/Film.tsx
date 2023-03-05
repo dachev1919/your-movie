@@ -5,12 +5,14 @@ import Section from '../../../common/components/section/Section';
 import { ICast, IFilm, ITrailer } from '../../../@types/interfaces';
 import Card from '../../home/components/card/Card';
 import Slider from '../../../common/components/slider/Slider';
+import {useNavigate} from "react-router-dom";
 
 interface IFilmProps {
 	mediaType: MediaType;
 }
 
 const Film: FC<IFilmProps> = props => {
+	const navigate = useNavigate();
 	const [film, setFilm] = useState<IFilm>({
 		id: 0,
 		coverPath: '',
@@ -66,7 +68,7 @@ const Film: FC<IFilmProps> = props => {
 			{/*poster and text*/}
 			<Section className='-mt-[9.5rem] flex items-center relative z-10 mobile:block'>
 				<Image
-					className='!w-[13rem] !min-w-[13rem] !h-[18.5rem] mobile:mx-auto'
+					className='w-[13rem] min-w-[13rem] h-[18.5rem] mobile:mx-auto'
 					src=''
 					alt=''
 				/>
@@ -122,6 +124,7 @@ const Film: FC<IFilmProps> = props => {
 				<Slider slidesToShow={2} slidesToScroll={2} swipe={false}>
 					{film.seasons.map((season, index) => (
 						<Card
+							onClick={() => navigate(`season/${season.seasonNumber}`)}
 							title={`season-${season.seasonNumber}`}
 							imageSrc=''
 							key={'season-' + index}

@@ -10,7 +10,7 @@ interface IImageProps extends ICustomComponentProps {
 const Image: FC<IImageProps> = props => {
 	return (
 		<div
-			className={mergeClassName('bg-primary w-full h-full', props.className)}
+			className={mergeClassName('bg-primary', props.className)}
 		>
 			<img src={props.src} className='w-full h-full object-cover' alt={props.alt} />
 		</div>
