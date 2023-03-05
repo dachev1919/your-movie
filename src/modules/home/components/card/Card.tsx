@@ -12,9 +12,9 @@ const Card: FC<ICardProps> = props => {
 	return (
 		<div
 			className='mx-3 my-1.5 cursor-pointer'
-			onClick={() => props.onClick ? props.onClick() : ''}
+			onClick={() => (props.onClick ? props.onClick() : '')}
 		>
-			<Image className='min-h-[12.5rem] !h-[12.5rem]' src='' alt='' />
+			<Image className='min-h-[12.5rem] h-[12.5rem]' src='' alt='' />
 			<p className='py-1.5 line-clamp-2'>{props.title}</p>
 		</div>
 	);
