@@ -13,7 +13,10 @@ module.exports = {
       },
       screens: {
         'mobile': {
-          max: '768px'
+          max: '767px'
+        },
+        'desktop': {
+          min: '768px'
         },
         'ultra-xl': {
           max: '575px'
@@ -22,6 +25,7 @@ module.exports = {
     },
   },
   plugins: [
-      require('@tailwindcss/line-clamp')
+      require('@tailwindcss/line-clamp'),
+      require('tailwind-scrollbar'),
   ],
 }

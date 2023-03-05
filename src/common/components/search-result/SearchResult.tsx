@@ -17,6 +17,7 @@ const SearchResult: FC<ISearchResultProps> = props => {
 			arrs.push({
 				id: i,
 				title: 'lorem',
+				mediaType: 'tv',
 				description: '',
 				coverPath: '',
 				genreIds: [1, 2, 3, 4, 5, 6],
@@ -37,7 +38,7 @@ const SearchResult: FC<ISearchResultProps> = props => {
 			{items.slice(0, 7).map((film, index) => (
 				<div
 					key={`search-${film.id}`}
-					className='flex items-start p-1.5 rounded-lg hover:bg-primary cursor-pointer m-1.5'
+					className='flex items-start p-1.5 rounded-lg hover:bg-primary/30 cursor-pointer m-1.5'
 				>
 					{/*image*/}
 					<Image

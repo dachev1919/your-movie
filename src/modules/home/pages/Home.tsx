@@ -15,6 +15,7 @@ const Home: FC = () => {
 		for (let i = 0; i < 6; i++) {
 			arrs.push({
 				id: i,
+				mediaType: 'tv',
 				title: 'lorem',
 				description: '',
 				coverPath: '',
@@ -49,7 +50,7 @@ const Home: FC = () => {
 				<Slider isMovieCard={true} autoplay={true}>
 					{
 						inTheaters?.map((film) => (
-							<Card film={film} key={film.id} />
+							<Card title={film.title} imageSrc='' key={film.id} />
 						))
 					}
 				</Slider>

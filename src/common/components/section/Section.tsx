@@ -9,12 +9,12 @@ interface ISectionProps extends ICustomComponentProps {
 const Section: FC<ISectionProps> = (props) => {
 
   return (
-    <div>
+    <section className='last:pb-20'>
       <Container className={props.className}>
-        {props.title ? <h1 className='text-xl px-6 py-1.5'>{props.title}</h1> : ''}
+        {props.title ? <h1 className='text-xl px-3 py-1.5'>{props.title}</h1> : ''}
         {props.children}
       </Container>
-    </div>
+    </section>
   );
 };
 

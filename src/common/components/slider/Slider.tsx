@@ -4,6 +4,7 @@ import './slider.scss';
 
 interface ISliderProps extends Settings {
 	isMovieCard?: boolean;
+	isSeasonCard?: boolean;
 }
 
 const Slider: FC<ISliderProps> = props => {
