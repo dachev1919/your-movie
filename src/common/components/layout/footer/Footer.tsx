@@ -1,9 +1,12 @@
-import React, { FC } from 'react';
-import styles from './Footer.module.scss';
+import { FC } from 'react';
 
 const Footer: FC = () => {
+	const date = new Date();
+	const currentYear = date.getFullYear();
+
 	return (
-		<footer className={styles.footer}>
+		<footer className='p-6 text-center mt-auto'>
+			<p className='select-none text-sm opacity-90'>&#169; {currentYear} Developed by Oleh Dachev. All right reserved.</p>
 		</footer>
 	);
 };

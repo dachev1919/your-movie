@@ -26,9 +26,15 @@ export interface ICast {
 	id: number;
 	name: string;
 	characterName: string;
+	profilePath: string;
 }
 
 export interface ITrailer {
 	id: number;
 	link: string;
+}
+
+export interface Genre {
+	id: number;
+	name: string;
 }

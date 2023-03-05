@@ -1,7 +1,6 @@
 import React, {FC, useEffect, useState} from 'react';
 import {MediaType} from "../../../@types/types";
 import {IFilm} from "../../../@types/interfaces";
-import Image from "../../../common/components/image/Image";
 import Section from "../../../common/components/section/Section";
 import {useSearchParams} from "react-router-dom";
 import Card from "../../home/components/card/Card";
@@ -51,7 +50,7 @@ const Catalog: FC<ICatalogProps> = (props) => {
       {/*backdrop*/}
       <div className='h-[8rem] relative'>
         <div className='overlay-film-cover' />
-        <Image src='' alt='' />
+        <div className='h-full w-full bg-primary'></div>
       </div>
       {/*poster and text*/}
       <Section title={title} className='-mt-[6rem] flex items-center relative z-10'>
