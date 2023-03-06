@@ -6,9 +6,23 @@ export interface ICustomComponentProps {
 	className?: string;
 }
 
+export interface IEpisode {
+	id: number;
+	title: string;
+	overview: string;
+	airDate: string;
+	stillPath: string;
+	episodeNumber: number;
+}
+
 export interface ISeason {
 	id: number;
+	name: string;
+	filmName: string;
 	seasonNumber: number;
+	posterPath: string;
+	episodes: IEpisode[];
+	airDate: string;
 }
 
 export interface IFilm {
@@ -31,7 +45,7 @@ export interface ICast {
 
 export interface ITrailer {
 	id: number;
-	link: string;
+	key: string;
 }
 
 export interface Genre {

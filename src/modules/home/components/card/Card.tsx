@@ -4,7 +4,7 @@ import { ICustomComponentProps } from '../../../../@types/interfaces';
 
 interface ICardProps extends ICustomComponentProps {
 	imageSrc: string;
-	title: string;
+	title?: string;
 	onClick?: Function;
 }
 
@@ -16,6 +16,7 @@ const Card: FC<ICardProps> = props => {
 		>
 			<Image className='min-h-[18rem] h-[18rem] overflow-hidden rounded-lg' src={props.imageSrc} alt='card cover' />
 			<p className='py-1.5 line-clamp-2'>{props.title}</p>
+			{props.children}
 		</div>
 	);
 };
