@@ -268,7 +268,7 @@ export const getSeasons = async (
 						overview: episode.overview,
 						airDate: episode.air_date,
 						stillPath: episode.still_path,
-						episodeNumber: episode.episode_number,
+						episodeNumber: episode.episode_number
 					} satisfies IEpisode)
 			)
 		};
@@ -277,4 +277,38 @@ export const getSeasons = async (
 	}
 
 	return null;
+};
+
+export const getDiscover = async (
+	mediaType: MediaType,
+	page = 1
+): Promise<{
+	films: IFilm[];
+	totalPages: number;
+}> => {
+	try {
+		const { data } = await axiosClient.get<
+			any,
+			AxiosResponse<{
+				total_pages: number;
+				results: unknown[];
+			}>
+		>(`/discover/${mediaType}`, {
+			params: {
+				page
+			}
+		});
+
+		return {
+			films: data.results.map(val => formatResult(val, mediaType)),
+			totalPages: data.total_pages
+		};
+	} catch (error: any) {
+		console.log(error.message);
+	}
+
+	return {
+		films: [],
+		totalPages: 0
+	};
 };
