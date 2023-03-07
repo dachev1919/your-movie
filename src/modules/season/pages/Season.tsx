@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, {FC, useCallback, useEffect, useState} from 'react';
 import Image from '../../../common/components/image/Image';
 import Section from '../../../common/components/section/Section';
 import { ISeason } from '../../../@types/interfaces';
@@ -12,15 +12,15 @@ const Season: FC = () => {
 	const [season, setSeason] = useState<ISeason | null>(null);
 	const { id, seasonNumber } = useParams<any>();
 
-	const fetch = async () => {
+	const fetch = useCallback(async () => {
 		setSeason(
 			await getSeasons(parseInt(id as string), parseInt(seasonNumber as string))
 		);
-	};
+	}, [id, seasonNumber]);
 
 	useEffect(() => {
 		fetch();
-	}, []);
+	}, [fetch]);
 
 	if (!season) {
 		return (
@@ -61,7 +61,7 @@ const Season: FC = () => {
 				{season.episodes?.map(episode => (
 					<div
 						key={'episode-' + episode.id}
-						className='my-6 flex items-stretch rounded-md p-3 transition gap-4 cursor-pointer hover:bg-primary/30'
+						className='my-6 flex items-stretch rounded-md p-3 transition gap-4 hover:bg-primary/30'
 					>
 						<Image
 							className='min-w-[19rem] w-[19rem] h-[19rem]'

@@ -2,9 +2,18 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import { MediaType } from '../../../@types/types';
 import { IFilm } from '../../../@types/interfaces';
 import Section from '../../../common/components/section/Section';
-import {useLocation, useNavigate, useParams, useSearchParams} from 'react-router-dom';
+import {
+	useLocation,
+	useNavigate,
+	useParams,
+	useSearchParams
+} from 'react-router-dom';
 import Card from '../../home/components/card/Card';
-import {getDiscover, getSearchItems, getTopRated} from '../../../api/tmbd-api';
+import {
+	getDiscover,
+	getSearchItems,
+	getTopRated
+} from '../../../api/tmbd-api';
 import { tmdbImageFormating } from '../../../utils/tmdb-image';
 // import Loading from '../../../common/components/loading/Loading';
 

@@ -16,6 +16,7 @@ import { tmdbImageFormating } from '../../../utils/tmdb-image';
 import { useGlobalContext } from '../../App';
 import { youtubeThumbnail } from '../../../utils/youtube-thumbnail';
 import Loading from '../../../common/components/loading/Loading';
+import TrailerModals from '../../../common/components/trailer-modals/TrailerModals';
 
 interface IFilmProps {
 	mediaType: MediaType;
@@ -31,6 +32,13 @@ const Film: FC<IFilmProps> = props => {
 	const [casts, setCasts] = useState<ICast[]>([]);
 	const [trailers, setTrailers] = useState<ITrailer[]>([]);
 	const [recommendations, setRecommendations] = useState<IFilm[]>([]);
+	const [trailerModalsSrc, setTrailerModalsSrc] = useState<string>('');
+
+	const playTrailer = async (key: string) => {
+		setTrailerModalsSrc(
+			`https://www.youtube.com/embed/${key}?autoplay=1`
+		);
+	};
 
 	const fetch = useCallback(async () => {
 		const film = await getDetails(props.mediaType, parseInt(id as string));
@@ -47,7 +55,7 @@ const Film: FC<IFilmProps> = props => {
 		setFilm(undefined);
 		window.scrollTo({ top: 0 });
 		fetch();
-	}, [location]);
+	}, [location, fetch]);
 
 	if (film === null) {
 		// redirect to 404 page
@@ -81,7 +89,7 @@ const Film: FC<IFilmProps> = props => {
 				<div className='px-3 flex flex-col items-start gap-3 mobile:mt-4'>
 					<p className='text-4xl line-clamp-1'>{film.title}</p>
 					<ul className='flex items-center gap-3 flex-wrap'>
-						{film.genreIds.map((id, index) => (
+						{film.genreIds.map((id) => (
 							<li
 								key={`genre-${id}`}
 								className='px-3 py-1.5 bg-primary rounded-lg text-sm'
@@ -102,10 +110,11 @@ const Film: FC<IFilmProps> = props => {
 					<div className='flex items-start'>
 						{casts.map((cast, index) => (
 							<div
-								className='flex-shrink-0 w-[20%] min-w-[12.5rem] mb-3'
+								className='flex-shrink-0 w-[20%] min-w-[12.5rem] mb-3 ultra-xl:w-full'
 								key={`casts-2-${index}`}
 							>
 								<Card
+									withPlay={false}
 									cursor={false}
 									key={`cast-${index}`}
 									imageSrc={tmdbImageFormating(cast.profilePath)}
@@ -123,12 +132,12 @@ const Film: FC<IFilmProps> = props => {
 				<div className='scrollbar-thin scrollbar-thumb-primary scrollbar-track-header overflow-auto'>
 					<div className='flex items-center'>
 						{trailers.map((trailer, index) => (
-							<div
-								className='flex-shrink-0 !w-[25%] min-w-[15rem] my-3 ml-3 rounded-md overflow-hidden'
+							<Card
+								onClick={() => playTrailer(trailer.key)}
+								className='flex-shrink-0 w-1/2 mobile:w-full'
 								key={`casts-2-${index}`}
-							>
-								<Image src={youtubeThumbnail(trailer.key)} alt='trailer' />
-							</div>
+								imageSrc={youtubeThumbnail(trailer.key)}
+							/>
 						))}
 					</div>
 				</div>
@@ -173,6 +182,10 @@ const Film: FC<IFilmProps> = props => {
 					</Slider>
 				</Section>
 			)}
+			<TrailerModals
+				onHide={() => setTrailerModalsSrc('')}
+				src={trailerModalsSrc}
+			/>
 		</>
 	);
 };

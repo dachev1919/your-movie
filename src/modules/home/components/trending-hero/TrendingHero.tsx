@@ -13,13 +13,13 @@ interface ITrendingHeroProps {
 const TrendingHero: FC<ITrendingHeroProps> = props => {
 	return (
 		<div
-			className='h-[24rem] relative flex items-center cursor-pointer'
+			className='h-[26rem] mobile:h-[19rem] relative flex items-center cursor-pointer'
 			onClick={() => props.onClick()}
 		>
 			{/*bg image*/}
 			<div className='absolute w-full h-full left-0 top-0 bottom-0'>
 				<div className='overlay-slick-hero'></div>
-				<Image src={tmdbImageFormating(props.film.coverPath)} alt='' />
+				<Image className='h-full' src={tmdbImageFormating(props.film.coverPath)} alt='' />
 			</div>
 			{/*text*/}
 			<div className='flex flex-col gap-5 items-start relative z-10 mx-[55px] max-w-[50%] mobile:max-w-full'>

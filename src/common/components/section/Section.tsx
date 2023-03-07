@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { ICustomComponentProps } from '../../../@types/interfaces';
 import Container from '../layout/container/Container';
 import { mergeClassName } from '../../../utils/merge-class-name';
@@ -6,9 +6,15 @@ import { mergeClassName } from '../../../utils/merge-class-name';
 interface ISectionProps extends ICustomComponentProps {
 	title?: string;
 	onTitleClick?: () => void;
+	hidden?: boolean;
 }
 
 const Section: FC<ISectionProps> = props => {
+	if (props.hidden) {
+
+		return <></>;
+	}
+
 	return (
 		<section className='last:pb-20'>
 			<Container className={props.className}>
