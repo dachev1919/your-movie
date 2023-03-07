@@ -4,7 +4,7 @@ import { Routers } from '../routes/Routers';
 import {MediaType} from "../@types/types";
 import {Genre} from "../@types/interfaces";
 import Loading from "../common/components/loading/Loading";
-import {getGenres} from "../common/api/tmbd-api";
+import {getGenres} from "../api/tmbd-api";
 
 interface IAppProps {}
 

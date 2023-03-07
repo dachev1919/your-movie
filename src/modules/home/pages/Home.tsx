@@ -9,10 +9,12 @@ import {
 	getInTheaters,
 	getPopulars,
 	getTopRated,
+	getTrailers,
 	getTrendings
-} from '../../../common/api/tmbd-api';
+} from '../../../api/tmbd-api';
 import { tmdbImageFormating } from '../../../utils/tmdb-image';
 import { mergeFilms } from '../../../utils/merge-films';
+import TrailerModals from '../../../common/components/trailer-modals/TrailerModals';
 
 const Home: FC = () => {
 	const navigate = useNavigate();
@@ -21,17 +23,26 @@ const Home: FC = () => {
 	const [populars, setPopulars] = useState<IFilm[]>();
 	const [topRatedTv, setTopRatedTv] = useState<IFilm[]>();
 	const [topRatedMovie, setTopRatedMovie] = useState<IFilm[]>();
+	const [trailerModalsSrc, setTrailerModalsSrc] = useState<string>('');
+
+	const playTrailer = async (film: IFilm) => {
+		const trailers = await getTrailers(film.mediaType, film.id);
+
+		setTrailerModalsSrc(
+			`https://www.youtube.com/embed/${trailers[0].key}?autoplay=0`
+		);
+	};
 
 	const goToDetailPage = (film: IFilm) => {
-		navigate(`/your-movie/${film.mediaType}/${film.id}`)
+		navigate(`/your-movie/${film.mediaType}/${film.id}`);
 	};
 
 	const fetchTopRatedTv = async () => {
-		setTopRatedTv(await getTopRated('tv'));
+		setTopRatedTv(await (await getTopRated('tv')).films);
 	};
 
 	const fetchTopRatedMovie = async () => {
-		setTopRatedMovie(await getTopRated('movie'));
+		setTopRatedMovie(await (await getTopRated('movie')).films);
 	};
 
 	const fetchPopulars = async () => {
@@ -73,6 +84,7 @@ const Home: FC = () => {
 					{onSwipe =>
 						trendings?.map(film => (
 							<TrendingHero
+								onPlayTrailer={() => playTrailer(film)}
 								onClick={() =>
 									!onSwipe
 										? navigate(`/your-movie/${film.mediaType}/${film.id}`)
@@ -88,7 +100,7 @@ const Home: FC = () => {
 			{/* in theaters */}
 			<Section title='In Theaters'>
 				<Slider isMovieCard={true}>
-					{_ =>
+					{() =>
 						inTheaters?.map(film => (
 							<Card
 								title={film.title}
@@ -103,7 +115,7 @@ const Home: FC = () => {
 			{/* populars */}
 			<Section title={"Wat's Popular"}>
 				<Slider isMovieCard={true}>
-					{_ =>
+					{() =>
 						populars?.map(film => (
 							<Card
 								title={film.title}
@@ -116,9 +128,12 @@ const Home: FC = () => {
 				</Slider>
 			</Section>
 			{/* top-rated tv */}
-			<Section title={'Top Rated TV'}>
+			<Section
+				title={'Top Rated TV'}
+				onTitleClick={() => navigate(`/your-movie/list/top-rated-tvs`)}
+			>
 				<Slider isMovieCard={true}>
-					{_ =>
+					{() =>
 						topRatedTv?.map(film => (
 							<Card
 								title={film.title}
@@ -131,9 +146,12 @@ const Home: FC = () => {
 				</Slider>
 			</Section>
 			{/* top-rated movies */}
-			<Section title={'Top Rated Movies'}>
+			<Section
+				title={'Top Rated Movies'}
+				onTitleClick={() => navigate(`/your-movie/list/top-rated-movies`)}
+			>
 				<Slider isMovieCard={true}>
-					{_ =>
+					{() =>
 						topRatedMovie?.map(film => (
 							<Card
 								title={film.title}
@@ -145,6 +163,7 @@ const Home: FC = () => {
 					}
 				</Slider>
 			</Section>
+			<TrailerModals onHide={() => setTrailerModalsSrc('')} src={trailerModalsSrc} />
 		</>
 	);
 };

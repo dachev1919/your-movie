@@ -1,23 +1,24 @@
-import React, {FC, useEffect, useRef, useState} from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { MediaType } from '../../../@types/types';
 import { IFilm } from '../../../@types/interfaces';
 import Section from '../../../common/components/section/Section';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import {useLocation, useNavigate, useParams, useSearchParams} from 'react-router-dom';
 import Card from '../../home/components/card/Card';
-import { getDiscover } from '../../../common/api/tmbd-api';
+import {getDiscover, getSearchItems, getTopRated} from '../../../api/tmbd-api';
 import { tmdbImageFormating } from '../../../utils/tmdb-image';
 // import Loading from '../../../common/components/loading/Loading';
 
 interface ICatalogProps {
-	type: MediaType | 'search';
+	type: MediaType | 'search' | 'list';
 }
 
 const Catalog: FC<ICatalogProps> = props => {
+	const location = useLocation();
 	const navigate = useNavigate();
 	let title: string = '';
 	let request: (page: number) => Promise<{
-		totalPages: number,
-		films: IFilm[]
+		totalPages: number;
+		films: IFilm[];
 	}>;
 
 	const [films, setFilms] = useState<IFilm[]>([]);
@@ -26,6 +27,7 @@ const Catalog: FC<ICatalogProps> = props => {
 	const totalPageRef = useRef(2);
 	const loadingRef = useRef(false);
 	const [onLoading, setOnLoading] = useState(false);
+	const { listTitle } = useParams<any>();
 
 	switch (props.type) {
 		case 'movie':
@@ -38,6 +40,16 @@ const Catalog: FC<ICatalogProps> = props => {
 			break;
 		case 'search':
 			title = `Search results for ${params.get('q')}`;
+			request = (page: number) => getSearchItems(params.get('q') || '', page);
+			break;
+		case 'list':
+			title = listTitle as string;
+
+			if (title === 'top-rated-tvs') {
+				request = (page: number) => getTopRated('tv', page);
+			} else if (title === 'top-rated-movies') {
+				request = (page: number) => getTopRated('movie', page);
+			}
 			break;
 		default:
 			break;
@@ -47,7 +59,7 @@ const Catalog: FC<ICatalogProps> = props => {
 		setOnLoading(true);
 		loadingRef.current = true;
 
-		const {films, totalPages} = await request(pageRef.current);
+		const { films, totalPages } = await request(pageRef.current);
 
 		setOnLoading(false);
 		loadingRef.current = false;
@@ -60,7 +72,7 @@ const Catalog: FC<ICatalogProps> = props => {
 		setFilms([]);
 		fetch();
 		window.scrollTo({ top: 0 });
-	}, [props.type]);
+	}, [props.type, location]);
 
 	const onWindowScroll = () => {
 		if (loadingRef.current) return;
@@ -71,15 +83,15 @@ const Catalog: FC<ICatalogProps> = props => {
 				fetch();
 			}
 		}
-	}
+	};
 
 	useEffect(() => {
 		window.addEventListener('scroll', onWindowScroll);
 
 		return () => {
 			window.removeEventListener('scroll', onWindowScroll);
-		}
-	})
+		};
+	});
 	//
 	// if (films === undefined) {
 	// 	return (
@@ -106,7 +118,9 @@ const Catalog: FC<ICatalogProps> = props => {
 				<div className='grid lg:grid-cols-4 sm:grid-cols-4 mobile:grid-cols-2 ultra-xl:grid-cols-1 relative z-[11]'>
 					{films.map(film => (
 						<Card
-							onClick={() => navigate(`/your-movie/${film.mediaType}/${film.id}`)}
+							onClick={() =>
+								navigate(`/your-movie/${film.mediaType}/${film.id}`)
+							}
 							imageSrc={tmdbImageFormating(film.posterPath)}
 							title={film.title}
 							key={`catalog-${film.id}`}

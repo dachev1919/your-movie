@@ -21,6 +21,11 @@ module.exports = {
         'ultra-xl': {
           max: '575px'
         }
+      },
+      transitionProperty: {
+        margin: 'margin',
+        opacity: 'opacity',
+        transform: 'transform'
       }
     },
   },

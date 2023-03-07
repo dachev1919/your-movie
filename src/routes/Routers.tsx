@@ -19,6 +19,7 @@ export const Routers: FC<RoutersProps> = () => {
 				<Route path='/your-movie/search' element={<Catalog type='search'/>} />
 				<Route path='/your-movie/tv/:id' element={<Film mediaType='tv'/>} />
 				<Route path='/your-movie/movie/:id' element={<Film mediaType='movie'/>} />
+				<Route path='/your-movie/list/:listTitle' element={<Catalog type='list'/>} />
 				<Route path='/your-movie/tv/:id/season/:seasonNumber' element={<Season />} />
 			</Routes>
 		</>

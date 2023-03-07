@@ -11,7 +11,7 @@ import {
 	getDetails,
 	getRecommendations,
 	getTrailers
-} from '../../../common/api/tmbd-api';
+} from '../../../api/tmbd-api';
 import { tmdbImageFormating } from '../../../utils/tmdb-image';
 import { useGlobalContext } from '../../App';
 import { youtubeThumbnail } from '../../../utils/youtube-thumbnail';
@@ -90,7 +90,6 @@ const Film: FC<IFilmProps> = props => {
 									globalContext.genres[film.mediaType]?.find(g => g.id === id)
 										?.name
 								}
-								{index !== film.genreIds.length - 1 ? ', ' : ''}
 							</li>
 						))}
 					</ul>
@@ -107,6 +106,7 @@ const Film: FC<IFilmProps> = props => {
 								key={`casts-2-${index}`}
 							>
 								<Card
+									cursor={false}
 									key={`cast-${index}`}
 									imageSrc={tmdbImageFormating(cast.profilePath)}
 								>
@@ -134,41 +134,45 @@ const Film: FC<IFilmProps> = props => {
 				</div>
 			</Section>
 			{/*seasons*/}
-			<Section title='Seasons'>
-				<Slider
-					slidesToShow={film.seasons.length > 2 ? 3 : 1}
-					slidesToScroll={1}
-					swipe={false}
-				>
-					{() =>
-						film.seasons.map((season, index) => (
-							<Card
-								onClick={() => navigate(`season/${season.seasonNumber}`)}
-								title={season.name}
-								imageSrc={tmdbImageFormating(season.posterPath)}
-								key={'season-' + index}
-							/>
-						))
-					}
-				</Slider>
-			</Section>
+			{film.seasons.length > 0 && (
+				<Section title='Seasons'>
+					<Slider
+						slidesToShow={film.seasons.length > 2 ? 3 : 1}
+						slidesToScroll={1}
+						swipe={false}
+					>
+						{() =>
+							film.seasons.map((season, index) => (
+								<Card
+									onClick={() => navigate(`season/${season.seasonNumber}`)}
+									title={season.name}
+									imageSrc={tmdbImageFormating(season.posterPath)}
+									key={'season-' + index}
+								/>
+							))
+						}
+					</Slider>
+				</Section>
+			)}
 			{/*recommendations*/}
-			<Section title='Recommendations'>
-				<Slider isMovieCard={true}>
-					{() =>
-						recommendations.map(item => (
-							<Card
-								onClick={() =>
-									navigate(`/your-movie/${props.mediaType}/${item.id}`)
-								}
-								title={item.title}
-								imageSrc={tmdbImageFormating(item.posterPath)}
-								key={'recommendations' + item.id}
-							/>
-						))
-					}
-				</Slider>
-			</Section>
+			{recommendations.length && (
+				<Section title='Recommendations'>
+					<Slider isMovieCard={true}>
+						{() =>
+							recommendations.map(item => (
+								<Card
+									onClick={() =>
+										navigate(`/your-movie/${props.mediaType}/${item.id}`)
+									}
+									title={item.title}
+									imageSrc={tmdbImageFormating(item.posterPath)}
+									key={'recommendations' + item.id}
+								/>
+							))
+						}
+					</Slider>
+				</Section>
+			)}
 		</>
 	);
 };

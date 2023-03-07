@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { IFilm } from '../../../@types/interfaces';
 import Image from '../image/Image';
-import { getSearchItems } from '../../api/tmbd-api';
+import { getSearchItems } from '../../../api/tmbd-api';
 import { tmdbImageFormating } from '../../../utils/tmdb-image';
 import { useGlobalContext } from '../../../modules/App';
 import {useNavigate} from "react-router-dom";

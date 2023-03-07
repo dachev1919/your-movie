@@ -116,7 +116,7 @@ const Header: FC = () => {
 					/>
 					<IoIosSearch size={18} />
 					{/*tmp results*/}
-					{isSearchFocus ? (
+					{isSearchFocus && keyword ? (
 						<SearchResult keyword={keyword} goToSearchPage={goToSearchPage} />
 					) : (
 						''

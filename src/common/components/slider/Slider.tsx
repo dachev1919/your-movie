@@ -15,7 +15,7 @@ const Slider: FC<ISliderProps> = props => {
 		settings = {
 			autoplay: false,
 			...settings,
-			slidesToShow: 5,
+			slidesToShow: props.slidesToShow ? props.slidesToShow : 5,
 			slidesToScroll: 1,
 			infinite: true,
 			swipe: false,

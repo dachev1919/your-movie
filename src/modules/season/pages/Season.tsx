@@ -3,7 +3,7 @@ import Image from '../../../common/components/image/Image';
 import Section from '../../../common/components/section/Section';
 import { ISeason } from '../../../@types/interfaces';
 import Loading from '../../../common/components/loading/Loading';
-import { getSeasons } from '../../../common/api/tmbd-api';
+import { getSeasons } from '../../../api/tmbd-api';
 import { useParams } from 'react-router-dom';
 import { tmdbImageFormating } from '../../../utils/tmdb-image';
 import { formatDate } from '../../../utils/format-date';
